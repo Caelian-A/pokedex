@@ -1,12 +1,7 @@
 //Start of IIFE
 let pokemonRepository = (function () {
-  let pokemonList = [
-    { name: 'Eevee', height: 0.3, type: ['normal'] },
-    { name: 'Bulbasaur', height: 0.7, type: ['grass', 'posion'] },
-    { name: 'Charmander', height: 0.6, type: ['fire'] },
-    { name: 'Squirtle', height: 0.5, type: ['water'] },
-    { name: 'Pidgey', height: 0.3, type: ['flying', 'normal'] }
-  ];
+  let pokemonList = [];
+  let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   //returns the pokemonList array
   function getAll() {
@@ -33,28 +28,53 @@ let pokemonRepository = (function () {
   }
 
   function showDetails(pokemon) {
+    loadDetails(pokemon).then(function () {
     console.log(pokemon);
-  }
+  });
+}
+
+  function loadList() {
+    return fetch(apiURL).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsURL: item.url
+        };
+      add(pokemon);
+    });
+  }).catch(function (e) {
+    console.error(e);
+  })
+}
+
+function loadDetails(item) {
+  let url = item.detailsURL;
+  return fetch(url).then(function (response) {
+    return response.json();
+  }).then(function (details) {
+    item.imageUrl = details.sprites.front_default;
+    item.height = details.height;
+    item.types = details.types;
+  }).catch(function (e) {
+    console.error(e);
+  });
+}
+
   return {
     getAll: getAll,
     add: add,
-    addListItem: addListItem
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails
   };
 
   //End of IIFE
 })();
 
-pokemonRepository.getAll().forEach(function (pokemon) {
-  pokemonRepository.addListItem(pokemon);
-
+pokemonRepository.loadList().then(function() {
+  pokemonRepository.getAll().forEach(function (pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  });
 });
-
-
-//   let pokemonName = pokemonData.name
-//     let pokemonHeight = pokemonData.height
-//     let PokemonType = pokemonData.type
-//     //Write to the document.
-//     document.write('<li>');
-//     document.write(pokemonName + " - Height: " + pokemonHeight + "m");
-//     if (pokemonHeight > 0.6) document.write("  - Wow, thats tall!");
-//     document.write("</li>");
