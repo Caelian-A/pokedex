@@ -30,7 +30,7 @@ let pokemonRepository = (function () {
   // Creates Modal with details of the pokemon
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
-      showPKModal(pokemon.name, pokemon.height, pokemon.weight, pokemon.type1, pokemon.type2, pokemon.xp, pokemon.imageUrl);
+      showPKModal(pokemon.name, pokemon.height, pokemon.weight, pokemon.types, pokemon.xp, pokemon.imageUrl);
     });
   }
   // Fetches basic pokemon details from API.
@@ -59,8 +59,7 @@ let pokemonRepository = (function () {
       item.height = details.height;
       item.xp = details.base_experience;
       item.weight = details.weight;
-      item.type1 = details.types[0].type.name;
-      item.type2 = details.types[1].type.name;
+      item.types = details.types;
     }).catch(function (e) {
       console.error(e);
     });
@@ -68,7 +67,7 @@ let pokemonRepository = (function () {
 
   let pkModalContainer = document.querySelector('#pk-modal-container');
 
-  function showPKModal(name, height, weight, type1, type2, xp, img) {
+  function showPKModal(name, height, weight, types, xp, img) {
     pkModalContainer.innerHTML = '';
     let pkModal = document.createElement('div');
     pkModal.classList.add('pkModal');
@@ -88,12 +87,17 @@ let pokemonRepository = (function () {
     pkWeight.innerText = 'Weight: ' + weight + 'kg';
 
     let pkTypes = document.createElement('p');
-    pkTypes.innerText = 'Type(s): ' + type1 + ' & ' + type2;
+    let typesString = 'Type(s): ';
+    for (let i = 0; i < types.length; i++) {
+    typesString = typesString + types[i].type.name;
+    if (i != types.length - 1) typesString = typesString + ' & ';
+    }
+    pkTypes.innerText = typesString;
 
     let pkXP = document.createElement('p');
     pkXP.innerText = 'Base Experience: ' + xp;
 
-    let pkImage = document.createElement('img')
+    let pkImage = document.createElement('img');
     pkImage.classList.add('pkimage');
     pkImage.src = img;
 
@@ -110,13 +114,14 @@ let pokemonRepository = (function () {
   //modal closure
   function closeModal() {
     pkModalContainer.classList.remove('is-visible');
-    pkModalContainer.addEventListener('click', (e) => {
-      let target = e.target;
-      if (target === pkModalContainer) {
-        closeModal();
-      }
-    })
   };
+
+  pkModalContainer.addEventListener('click', (e) => {
+    let target = e.target;
+    if (target === pkModalContainer) {
+      closeModal();
+    }
+  });
 
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && pkModalContainer.classList.contains('is-visible')) {
