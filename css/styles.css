@@ -66,13 +66,14 @@ text-align: center;
   -webkit-appearance: none;
   border: 0;
   background: none;
-  color: #777;
+  color: #000;
   text-decoration: underline;
 }
 
 .pkModal h1 {
   margin-top: 0;
   text-align: left;
+  text-transform: capitalize;
 }
 
 .pkModal p {
@@ -92,7 +93,4 @@ text-align: center;
   height: 30%;
   width: 30%;
   float: right;  
-}
-h1 {
-  text-transform: capitalize;
 }
