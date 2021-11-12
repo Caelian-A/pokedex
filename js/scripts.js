@@ -20,6 +20,8 @@ let pokemonRepository = (function () {
     let pkButton = document.createElement('button');
     pkButton.innerText = pokemon.name;
     pkButton.classList.add('pk-button', 'btn');
+    pkButton.setAttribute('data-toggle', 'modal');
+    pkButton.setAttribute('data-target', '#pkModal');
     pkListItem.classList.add('group-list-item');
     pkListItem.appendChild(pkButton);
     pkList.appendChild(pkListItem);
@@ -29,11 +31,11 @@ let pokemonRepository = (function () {
     });
   }
   // Creates Modal with details of the pokemon
-  function showDetails(pokemon) {
+   function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
-      showPKModal(pokemon.name, pokemon.height, pokemon.weight, pokemon.types, pokemon.xp, pokemon.imageUrl);
+      showPKModal(pokemon);
     });
-  }
+  } 
   // Fetches basic pokemon details from API.
   function loadList() {
     return fetch(apiURL).then(function (response) {
@@ -56,7 +58,7 @@ let pokemonRepository = (function () {
     return fetch(url).then(function (response) {
       return response.json();
     }).then(function (details) {
-      item.imageUrl = details.sprites.front_default;
+      item.imageUrl = details.sprites.other.dream_world.front_default;
       item.height = details.height;
       item.xp = details.base_experience;
       item.weight = details.weight;
@@ -65,70 +67,32 @@ let pokemonRepository = (function () {
       console.error(e);
     });
   }
-
-  let pkModalContainer = document.querySelector('#pk-modal-container');
-
-  function showPKModal(name, height, weight, types, xp, img) {
-    pkModalContainer.innerHTML = '';
-    let pkModal = document.createElement('div');
-    pkModal.classList.add('pkModal');
-    //Code for the elements of the modal
-    let closeButtonElement = document.createElement('button');
-    closeButtonElement.classList.add('pk-modal-close');
-    closeButtonElement.innerText = 'Close';
-    closeButtonElement.addEventListener('click', closeModal);
-
-    let titleElement = document.createElement('h1');
-    titleElement.innerText = name;
-
-    let pkHeight = document.createElement('p');
-    pkHeight.innerText = 'Height: ' + height + 'm';
-
-    let pkWeight = document.createElement('p');
-    pkWeight.innerText = 'Weight: ' + weight + 'kg';
-
-    let pkTypes = document.createElement('p');
-    let typesString = 'Type(s): ';
-    for (let i = 0; i < types.length; i++) {
-    typesString = typesString + types[i].type.name;
-    if (i != types.length - 1) typesString = typesString + ' & ';
-    }
-    pkTypes.innerText = typesString;
-
-    let pkXP = document.createElement('p');
-    pkXP.innerText = 'Base Experience: ' + xp;
-
-    let pkImage = document.createElement('img');
-    pkImage.classList.add('pkimage');
-    pkImage.src = img;
-
-    pkModal.appendChild(titleElement);
-    pkModal.appendChild(closeButtonElement);
-    pkModal.appendChild(pkHeight);
-    pkModal.appendChild(pkWeight);
-    pkModal.appendChild(pkTypes);
-    pkModal.appendChild(pkXP);
-    pkModal.appendChild(pkImage);
-    pkModalContainer.appendChild(pkModal);
-    pkModalContainer.classList.add('is-visible');
-  }
-  //modal closure
-  function closeModal() {
-    pkModalContainer.classList.remove('is-visible');
-  };
-
-  pkModalContainer.addEventListener('click', (e) => {
-    let target = e.target;
-    if (target === pkModalContainer) {
-      closeModal();
-    }
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && pkModalContainer.classList.contains('is-visible')) {
-      closeModal();
-    };
-  });
+  function showPKModal(pokemon) {
+    let modalBody = $(".modal-body");
+    let modalTitle = $(".modal-title");
+    modalTitle.empty();
+    modalBody.empty();
+  
+    let nameElement = $("<h1>" + pokemon.name + "</h1>");
+    let imageElement = $('<img class="modal-img" style="width:50%">') 
+    imageElement.attr("src", pokemon.imageUrl);
+    let heightElement = $("<p>" + 'Height: ' + pokemon.height + 'm' + "</p>");
+    let weightElement = $("<p>" + 'Weight: ' + pokemon.weight + 'kg' + "</p>");
+    /*let typesString = 'Type(s): ';
+      for (let i = 0; i < types.length; i++) {
+      typesString = typesString + types[i].type.name;
+      if (i != types.length - 1) typesString = typesString + ' & ';
+      }
+      let typesElement = $(typesString);*/
+      let xpElement = $("<p>" + 'Base Experience: ' + pokemon.xp + "</p>");
+  
+      modalTitle.append(nameElement);
+      modalBody.append(imageElement);
+      modalBody.append(heightElement);
+      modalBody.append(weightElement);
+      //modalBody.append(typesElement);
+      modalBody.append(xpElement);
+      }
 
   return {
     getAll: getAll,
