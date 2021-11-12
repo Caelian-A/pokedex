@@ -21,14 +21,16 @@ body {
   width: 200px;
   cursor: pointer;
   text-transform: capitalize;
+  transition-duration: 0.3s;
 }
 
 .pk-button:hover {
-  background-color: #87aeae;
+  background-color: #A9dada;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #fff
 }
 
 .pokemon-list {
-  list-style-type: none;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
@@ -37,12 +39,21 @@ body {
 
 #pkModal {
   color:#000;
-  text-transform: capitalize;
-  align-items: center;
+   align-items: center;
   text-align: center;
+  text-transform: capitalize;
 }
 img {
   width: 150px;
   height: 150px;
   margin: 20px;
+}
+/*p::first-letter {
+  text-transform: capitalize;
+}
+h1::first-letter {
+  text-transform: capitalize;
+}*/
+.notCapitalised {
+text-transform: none;
 }
