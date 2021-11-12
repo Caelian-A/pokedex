@@ -17,21 +17,20 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 18px;
-  margin: 6px 6px;
+  margin: 12px 6px;
   width: 200px;
   cursor: pointer;
-  transition-duration: 0.4s;
-  text-transform: capitalize;
 }
 
 .pk-button:hover {
-  width: 250px;
   background-color: #87aeae;
-  letter-spacing: 2px;
 }
 
 .pokemon-list {
   list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
 }
 
 #pk-modal-container {

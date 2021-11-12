@@ -19,7 +19,8 @@ let pokemonRepository = (function () {
     let pkListItem = document.createElement('li');
     let pkButton = document.createElement('button');
     pkButton.innerText = pokemon.name;
-    pkButton.classList.add('pk-button');
+    pkButton.classList.add('pk-button', 'btn');
+    pkListItem.classList.add('group-list-item');
     pkListItem.appendChild(pkButton);
     pkList.appendChild(pkListItem);
     //Event Listener for click
