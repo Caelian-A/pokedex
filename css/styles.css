@@ -9,7 +9,7 @@ body {
 }
 
 .pk-button {
-   background-color: #A9dada;
+  background-color: #A9dada;
   color: #000;
   border: none;
   padding: 16px 32px;
@@ -39,21 +39,30 @@ body {
 
 #pkModal {
   color:#000;
-   align-items: center;
+  align-items: center;
   text-align: center;
   text-transform: capitalize;
 }
+
 img {
-  width: 150px;
-  height: 150px;
   margin: 20px;
 }
 /*p::first-letter {
-  text-transform: capitalize;
+text-transform: capitalize;
 }
 h1::first-letter {
-  text-transform: capitalize;
+text-transform: capitalize;
 }*/
 .notCapitalised {
-text-transform: none;
+  text-transform: none;
 }
+
+.list-group-item{
+  background: none;
+  border: none;
+}
+
+@media all and (max-width: 600px) {
+  .pokemon-list {
+    grid-template-columns: 1fr 1fr;
+    }};

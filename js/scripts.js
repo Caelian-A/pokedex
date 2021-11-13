@@ -22,7 +22,7 @@ let pokemonRepository = (function () {
     pkButton.classList.add('pk-button', 'btn');
     pkButton.setAttribute('data-toggle', 'modal');
     pkButton.setAttribute('data-target', '#pkModal');
-    pkListItem.classList.add('group-list-item');
+    pkListItem.classList.add('list-group-item');
     pkListItem.appendChild(pkButton);
     pkList.appendChild(pkListItem);
     //Event Listener for click
@@ -31,11 +31,11 @@ let pokemonRepository = (function () {
     });
   }
   // Creates Modal with details of the pokemon
-   function showDetails(pokemon) {
+  function showDetails(pokemon) {
     loadDetails(pokemon).then(function () {
       showPKModal(pokemon);
     });
-  } 
+  }
   // Fetches basic pokemon details from API.
   function loadList() {
     return fetch(apiURL).then(function (response) {
@@ -72,28 +72,28 @@ let pokemonRepository = (function () {
     let modalTitle = $(".modal-title");
     modalTitle.empty();
     modalBody.empty();
-  
+
     let nameElement = $("<h1>" + pokemon.name + "</h1>");
-    let imageElement = $('<img class="modal-img" style="width:50%">') 
+    let imageElement = $('<img class="modal-img" style="width:50%">')
     imageElement.attr("src", pokemon.imageUrl);
     let heightElement = $("<p>" + 'Height: ' + pokemon.height + 'm' + "</p>");
     let weightElement = $("<p>" + 'Weight: ' + pokemon.weight + 'kg' + "</p>");
     let typesString = '<p> Type<span class = notCapitalised>(s)</span>: ';
-      for (let i = 0; i < pokemon.types.length; i++) {
+    for (let i = 0; i < pokemon.types.length; i++) {
       typesString = typesString + pokemon.types[i].type.name;
       if (i != pokemon.types.length - 1) typesString = typesString + ' & ';
-      }
-      let typesElement = $("<p>" + typesString + "</p>");
-      console.log(typesElement);
-      let xpElement = $("<p>" + 'Base Experience: ' + pokemon.xp + "</p>");
-  
-      modalTitle.append(nameElement);
-      modalBody.append(imageElement);
-      modalBody.append(heightElement);
-      modalBody.append(weightElement);
-      modalBody.append(typesElement);
-      modalBody.append(xpElement);
-      }
+    }
+    let typesElement = $("<p>" + typesString + "</p>");
+    console.log(typesElement);
+    let xpElement = $("<p>" + 'Base Experience: ' + pokemon.xp + "</p>");
+
+    modalTitle.append(nameElement);
+    modalBody.append(imageElement);
+    modalBody.append(heightElement);
+    modalBody.append(weightElement);
+    modalBody.append(typesElement);
+    modalBody.append(xpElement);
+  }
 
   return {
     getAll: getAll,
