@@ -84,7 +84,6 @@ let pokemonRepository = (function () {
       if (i != pokemon.types.length - 1) typesString = typesString + ' & ';
     }
     let typesElement = $("<p>" + typesString + "</p>");
-    console.log(typesElement);
     let xpElement = $("<p>" + 'Base Experience: ' + pokemon.xp + "</p>");
 
     modalTitle.append(nameElement);
