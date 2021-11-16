@@ -16,15 +16,21 @@ let pokemonRepository = (function () {
   // Creates pokemon list in document
   function addListItem(pokemon) {
     let pkList = document.querySelector('.pokemon-list');
+    let pkRow = document.querySelector('.pk-row');
     let pkListItem = document.createElement('li');
     let pkButton = document.createElement('button');
+    let pkGrid = document.createElement('div');
+    pkGrid.classList.add('col-3');
     pkButton.innerText = pokemon.name;
     pkButton.classList.add('pk-button', 'btn');
     pkButton.setAttribute('data-toggle', 'modal');
     pkButton.setAttribute('data-target', '#pkModal');
     pkListItem.classList.add('list-group-item');
     pkListItem.appendChild(pkButton);
-    pkList.appendChild(pkListItem);
+    pkGrid.appendChild(pkListItem);
+    pkRow.appendChild(pkGrid);
+    pkList.appendChild(pkRow);
+    
     //Event Listener for click
     pkButton.addEventListener('click', function () {
       showDetails(pokemon);
@@ -78,7 +84,7 @@ let pokemonRepository = (function () {
     imageElement.attr("src", pokemon.imageUrl);
     let heightElement = $("<p>" + 'Height: ' + pokemon.height + 'm' + "</p>");
     let weightElement = $("<p>" + 'Weight: ' + pokemon.weight + 'kg' + "</p>");
-    let typesString = 'Type<span class = notCapitalised>(s)</span>: ';
+    let typesString = 'Type<span class = "notCapitalised">(s)</span>: ';
     for (let i = 0; i < pokemon.types.length; i++) {
       typesString = typesString + pokemon.types[i].type.name;
       if (i != pokemon.types.length - 1) typesString = typesString + ' & ';

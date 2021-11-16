@@ -18,7 +18,7 @@ body {
   display: inline-block;
   font-size: 18px;
   margin: 12px 6px;
-  width: 200px;
+  width: 100%;
   cursor: pointer;
   text-transform: capitalize;
   transition-duration: 0.3s;
@@ -29,13 +29,6 @@ body {
   transform: scale(1.1);
   box-shadow: 0 0 20px #fff
 }
-
-.pokemon-list {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto;
-}
-
 
 #pkModal {
   color:#000;
@@ -57,12 +50,7 @@ text-transform: capitalize;
   text-transform: none;
 }
 
-.list-group-item{
+ .list-group-item{
   background: none;
   border: none;
 }
-
-@media all and (max-width: 600px) {
-  .pokemon-list {
-    grid-template-columns: 1fr 1fr;
-    }};
