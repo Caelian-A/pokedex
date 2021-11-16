@@ -16,11 +16,10 @@ let pokemonRepository = (function () {
   // Creates pokemon list in document
   function addListItem(pokemon) {
     let pkList = document.querySelector('.pokemon-list');
-    let pkRow = document.querySelector('.pk-row');
     let pkListItem = document.createElement('li');
     let pkButton = document.createElement('button');
     let pkGrid = document.createElement('div');
-    pkGrid.classList.add('col-3');
+    pkGrid.classList.add('col-lg-3', 'col-md-4', 'col-sm-6', 'col-xs-12');
     pkButton.innerText = pokemon.name;
     pkButton.classList.add('pk-button', 'btn');
     pkButton.setAttribute('data-toggle', 'modal');
@@ -28,9 +27,8 @@ let pokemonRepository = (function () {
     pkListItem.classList.add('list-group-item');
     pkListItem.appendChild(pkButton);
     pkGrid.appendChild(pkListItem);
-    pkRow.appendChild(pkGrid);
-    pkList.appendChild(pkRow);
-    
+    pkList.appendChild(pkGrid);
+     
     //Event Listener for click
     pkButton.addEventListener('click', function () {
       showDetails(pokemon);
@@ -64,7 +62,7 @@ let pokemonRepository = (function () {
     return fetch(url).then(function (response) {
       return response.json();
     }).then(function (details) {
-      item.imageUrl = details.sprites.other.dream_world.front_default;
+      item.imageUrl = details.sprites.other.home.front_default;
       item.height = details.height;
       item.xp = details.base_experience;
       item.weight = details.weight;
