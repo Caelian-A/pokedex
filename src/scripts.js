@@ -1,17 +1,18 @@
+ /* eslint-env jquery */
 //Start of IIFE
 let pokemonRepository = (function () {
-  let pokemonList = [];
+let pokemonList = [];
   let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   //returns the pokemonList array
   function getAll() {
     return pokemonList;
-  };
+  }
 
   //adds new data to the pokemonList array
   function add(pokemon) {
     pokemonList.push(pokemon);
-  };
+  }
 
   // Creates pokemon list in document
   function addListItem(pokemon) {
@@ -55,7 +56,7 @@ let pokemonRepository = (function () {
     }).catch(function (e) {
       console.error(e);
     })
-  };
+  }
   // Fetches Image, Height, weight, types, base xp.
   function loadDetails(item) {
     let url = item.detailsURL;
@@ -72,23 +73,23 @@ let pokemonRepository = (function () {
     });
   }
   function showPKModal(pokemon) {
-    let modalBody = $(".modal-body");
-    let modalTitle = $(".modal-title");
+    let modalBody = $('.modal-body');
+    let modalTitle = $('.modal-title');
     modalTitle.empty();
     modalBody.empty();
 
-    let nameElement = $("<h1>" + pokemon.name + "</h1>");
+    let nameElement = $('<h1>' + pokemon.name + '</h1>');
     let imageElement = $('<img class="modal-img" style="width:50%">')
-    imageElement.attr("src", pokemon.imageUrl);
-    let heightElement = $("<p>" + 'Height: ' + pokemon.height + 'm' + "</p>");
-    let weightElement = $("<p>" + 'Weight: ' + pokemon.weight + 'kg' + "</p>");
+    imageElement.attr('src', pokemon.imageUrl);
+    let heightElement = $('<p>' + 'Height: ' + pokemon.height + 'm' + '</p>');
+    let weightElement = $('<p>' + 'Weight: ' + pokemon.weight + 'kg' + '</p>');
     let typesString = 'Type<span class = "notCapitalised">(s)</span>: ';
     for (let i = 0; i < pokemon.types.length; i++) {
       typesString = typesString + pokemon.types[i].type.name;
       if (i != pokemon.types.length - 1) typesString = typesString + ' & ';
     }
-    let typesElement = $("<p>" + typesString + "</p>");
-    let xpElement = $("<p>" + 'Base Experience: ' + pokemon.xp + "</p>");
+    let typesElement = $('<p>' + typesString + '</p>');
+    let xpElement = $('<p>' + 'Base Experience: ' + pokemon.xp + '</p>');
 
     modalTitle.append(nameElement);
     modalBody.append(imageElement);
