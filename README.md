@@ -7,6 +7,6 @@ Displays a list of the 150 original Pokemon
 Selecting a Pokémon will open a modal that contains an image and some details for that Pokémon
 
 ## Built using:
-HTML5, CSS, JS
-Bootstrap
-jQuery
+- HTML5, CSS, JS
+- Bootstrap
+- jQuery
